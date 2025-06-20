@@ -37,8 +37,6 @@ exit
 sudo apt install winbind
 ```
 
----
-
 #### Install A DAW
 Make sure your DAW supports VST plugins through Wine. LMMS does.
 
