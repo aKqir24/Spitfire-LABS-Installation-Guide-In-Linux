@@ -2,9 +2,10 @@
 
 Making music on older hardware can be challenging these days—especially with modern tools like Spitfire LABS requiring at least an Intel i5 or AMD Ryzen 5 CPU. Personally, I liked the older versions of LABS, where it didn’t rely on WebView2 for the interface. But things change, and with Microsoft planning to end support for Windows 10, I decided to switch to Linux (Debian 13) and set up LABS using Wine.
 
-> 📝 Tested on: Debian 13 (likely works on Debian 12.11), Arch Linux, and Artix Linux
-
-> 🧪 DAW Used: LMMS (not tested with Ardour or others)
+> [!important]
+> 📝 **Tested on:** Debian 13 (likely works on Debian 12.11), Arch Linux, and Artix Linux...
+>
+> 🧪 **DAW Used:** LMMS (not tested with Ardour or others)
 
 ---
 
@@ -68,6 +69,8 @@ winecfg
 
 You can get it from the [official Microsoft page](https://developer.microsoft.com/en-us/microsoft-edge/webview2) or use this direct installer link:
 [WebView2 Evergreen Installer](https://go.microsoft.com/fwlink/p/?LinkId=2124703)
+> [!note]
+> Do not use the standalone installer, cause it will install the 136.x.x version of Webview2 where it will just crash after launching LABS...
 
 ```bash
 wine ~/path/to/MicrosoftEdgeWebView2Setup.exe
@@ -132,5 +135,3 @@ Try running LMMS and loading the LABS VST. If it opens and displays properly, yo
 ## 🔄 Notes on Arch / Artix Linux
 
 Still working on a detailed guide for Arch-based distros. Setup is similar, but package names and version handling can differ. Stay tuned!
-
----
