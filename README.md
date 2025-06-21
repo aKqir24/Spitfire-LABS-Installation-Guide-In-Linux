@@ -46,7 +46,7 @@ sudo apt install lmms
 
 ---
 
-### 📦 Step 2 – Install Winetricks, VC++ Redistributable, and .NET
+### 📦 Step 2 – Install Winetricks, VC++ Redistributable, .NET, and etc...
 
 Winetricks may not be included by default on some systems. You can get the official `.deb` package from [Debian Packages](https://packages.debian.org/trixie/winetricks). If there are dependency issues, run:
 
@@ -58,7 +58,7 @@ Then install Winetricks and required components:
 
 ```bash
 sudo apt install winetricks
-winetricks -q vcrun2015 dotnet472
+winetricks -q vcrun2015 dotnet472 corefonts
 ```
 
 ---
