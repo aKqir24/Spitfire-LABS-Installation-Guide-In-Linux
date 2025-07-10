@@ -58,7 +58,7 @@ Then install Winetricks and required components:
 
 ```bash
 sudo apt install winetricks
-winetricks -q vcrun2015 dotnet472 corefonts
+winetricks -q vcrun2015 dotnet472 dotnet48 corefonts gdiplus
 ```
 
 ---
