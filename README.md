@@ -79,7 +79,7 @@ winecfg
 
 You can get it from the [official Microsoft page](https://developer.microsoft.com/en-us/microsoft-edge/webview2) or use this direct installer link:
 [WebView2 Evergreen Installer](https://go.microsoft.com/fwlink/p/?LinkId=2124703)
-> [!note]
+> [!warning]
 > Do not use the standalone installer, cause it will install the 136.x.x version of Webview2 where it will just crash after launching LABS...
 
 ```bash
