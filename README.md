@@ -148,12 +148,8 @@ Depending on your setup:
   * Try **Wine 9.1** or **Wine-Staging**, but be aware it may be unstable.
   * Ensure your GPU drivers are working properly and that your Wine prefix is clean.
 
-* **🔄 Notes on Arch / Artix Linux:**
-
-  * Still working on a detailed guide for Arch-based distros. Setup is similar, but package names and version handling can differ. Stay tuned!
-
 * **🔗 Sources:**
 
-  * [https://www.reddit.com/r/Lutris/comments/rpomzv/you_do_not_have_the_microsoft_webview2_runtime](https://www.reddit.com/r/Lutris/comments/rpomzv/you_do_not_have_the_microsoft_webview2_runtime)
-  * [https://bbs.archlinux.org/viewtopic.php?id=287582](https://bbs.archlinux.org/viewtopic.php?id=287582)
-  * [https://forum.winehq.org/viewtopic.php?t=38443](https://forum.winehq.org/viewtopic.php?t=38443)"
+  * https://www.reddit.com/r/Lutris/comments/rpomzv/you_do_not_have_the_microsoft_webview2_runtime
+  * https://bbs.archlinux.org/viewtopic.php?id=287582
+  * https://forum.winehq.org/viewtopic.php?t=38443
