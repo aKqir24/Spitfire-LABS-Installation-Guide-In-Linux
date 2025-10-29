@@ -130,9 +130,18 @@ ___Then, Try running LMMS and loading the LABS VST. If it opens and displays pro
 * Ensure your GPU drivers are working properly and that your Wine prefix is clean.
 
 ## Sources
-- [Reddit](https://www.reddit.com/r/Lutris/comments/rpomzv/you_do_not_have_the_microsoft_webview2_runtime/)
-- [Arch Forums](https://bbs.archlinux.org/viewtopic.php?id=287582)
-- [WineHq](https://forum.winehq.org/viewtopic.php?t=38443)
+<a href="https://www.reddit.com/r/Lutris/comments/rpomzv/you_do_not_have_the_microsoft_webview2_runtime">
+<img src="https://img.icons8.com/?size=100&id=13642&format=png&color=000000">
+</img>
+</a>
+<a href="https://bbs.archlinux.org/viewtopic.php?id=287582">
+<img src="https://img.icons8.com/?size=100&id=wAP66KkT7fgn&format=png&color=000000">
+</img>
+</a>
+<a href="https://forum.winehq.org/viewtopic.php?t=38443">
+<img src="https://img.icons8.com/?size=100&id=2TvmEjryO6NJ&format=png&color=000000">
+</img>
+</a>
 
 ---
 
