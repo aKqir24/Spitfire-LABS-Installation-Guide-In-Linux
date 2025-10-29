@@ -40,10 +40,13 @@ sudo apt install winbind
 #### Install A DAW
 Make sure your DAW supports VST plugins through Wine. LMMS does.
 > [!note]
-> If your using `lmms`, make sure it uses the alpha version, else vst plugins might not be supported by some stable releases. You can use pacstall as an alternative installation method to install the alpha version of `lmms`, however recent commits from github broke the vst support in .dll plugin files. I will fix this shortly though, so I recommend you either compile `lmms` your self or install it using pacstall.  
+> If your using `lmms`, make sure it uses the alpha version, else vst plugins might not be supported by some stable releases. You can use pacstall as an alternative installation method to install the alpha version of `lmms`. 
 ```bash
-sudo apt install lmms
-# Or use pcastall to install lmms
+  # If it is already in alpha
+  # Which likely the case
+  sudo apt install lmms
+
+  # Or use pcastall to install lmms
   sudo pacstall -I lmms-git
 ```
 
