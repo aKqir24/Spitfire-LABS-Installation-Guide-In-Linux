@@ -9,7 +9,6 @@ Making music on older hardware can be challenging these days—especially with m
 
 <br>
 
-## For Debian 13
 ### ✅ Step 1 – Install Wine and Dependencies
 
 Install `wine-stable` (Wine 10.0 or similar) and required dependencies.
@@ -117,7 +116,8 @@ Depending on your setup:
 
 ___Then, Try running LMMS and loading the LABS VST. If it opens and displays properly, you’re good to go.___
 
-## ❌ If It Still Doesn't Work:
+## ℹ️  More Info
+**❌ If It Still Doesn't Work:**
 
 * You can try downgrading to an older version of LABS link [here](https://github.com/aKqir24/Spitfire-LABS-Installation-Guide-In-Linux/blob/main/LABS.dll.zip).
   ````bash
@@ -128,23 +128,16 @@ ___Then, Try running LMMS and loading the LABS VST. If it opens and displays pro
   ````
 * Try **Wine 9.1** or **Wine-Staging**, but be aware it may be unstable.
 * Ensure your GPU drivers are working properly and that your Wine prefix is clean.
+<br>
 
-## Sources
-<a href="https://www.reddit.com/r/Lutris/comments/rpomzv/you_do_not_have_the_microsoft_webview2_runtime">
-<img src="https://img.icons8.com/?size=100&id=13642&format=png&color=000000">
-</img>
-</a>
-<a href="https://bbs.archlinux.org/viewtopic.php?id=287582">
-<img src="https://img.icons8.com/?size=100&id=wAP66KkT7fgn&format=png&color=000000">
-</img>
-</a>
-<a href="https://forum.winehq.org/viewtopic.php?t=38443">
-<img src="https://img.icons8.com/?size=100&id=2TvmEjryO6NJ&format=png&color=000000">
-</img>
-</a>
+**🔄 Notes on Arch / Artix Linux:**
 
----
+* Still working on a detailed guide for Arch-based distros. Setup is similar, but package names and version handling can differ. Stay tuned!
 
-## 🔄 Notes on Arch / Artix Linux
+<br>
 
-Still working on a detailed guide for Arch-based distros. Setup is similar, but package names and version handling can differ. Stay tuned!
+**🔗 Sources:**
+
+* https://www.reddit.com/r/Lutris/comments/rpomzv/you_do_not_have_the_microsoft_webview2_runtime
+* https://bbs.archlinux.org/viewtopic.php?id=287582
+* https://forum.winehq.org/viewtopic.php?t=38443"
