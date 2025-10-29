@@ -43,7 +43,7 @@ Make sure your DAW supports VST plugins through Wine. LMMS does.
 > If your using `lmms`, make sure it uses the alpha version, else vst plugins might not be supported by some stable releases. You can use pacstall as an alternative installation method to install the alpha version of `lmms`. 
 ```bash
   # If it is already in alpha
-  # Which likely the case
+  # Which is likely not the case
   sudo apt install lmms
 
   # Or use pcastall to install lmms
