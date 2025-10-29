@@ -78,6 +78,10 @@ sudo apt --fix-broken install
 
 * **Then install Winetricks and required components:**
   ```bash
+  # Debian / Ubuntu
+  sudo apt install winetricks
+  # Or in pacstall
+  sudo pacstall -I winetricks-git
   # Arch / Artix
   sudo pacman -S winetricks
   ```
