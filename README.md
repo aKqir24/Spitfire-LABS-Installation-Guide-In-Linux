@@ -39,7 +39,7 @@ sudo apt install --install-recommends winehq-staging
 
 # Arch / Artix
 sudo pacman -S wine-staging
-sudo pacman -S wine-staging # If you using aur
+yay -S wine-staging # If you using aur
 ```
 
 * **Enable 32-bit architecture and install `wine32`** (Some actions require root access, not just sudo):
