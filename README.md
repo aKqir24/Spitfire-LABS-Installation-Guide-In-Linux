@@ -43,7 +43,7 @@ yay -S wine-staging # If you using aur
 ```
 
 * **Enable 32-bit architecture and install `wine32`** (Some actions require root access, not just sudo):
-* 
+ 
   > **NOTE:** <br>
   > If you picked the new `wine-staging` setup you can skip this!
   
