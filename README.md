@@ -11,15 +11,42 @@ ___
 
 ## ✅ Step 1 – Install Wine and Dependencies
 
-Install `wine-stable` (Wine 10.0 or similar) and required dependencies.
+Install `wine-stable` (Wine 10.0, or similar) and required dependencies.
 
+  I recently tested it on `wine-stagging` version 11.1 and it works pretty well since they fixed this [#56378](https://bugs.winehq.org/show_bug.cgi?id=56378) bug, to set it up do the following:
+
+  ```bash
+  # Debian / Ubuntu
+  sudo mkdir -pm755 /etc/apt/keyrings
+  wget -O - https://dl.winehq.org/wine-builds/winehq.key | sudo gpg --dearmor -o /etc/apt/keyrings/winehq-archive.key -
+
+  # Arch / Artix
+  # You don't need to setup anything or you setup your aur
+  sudo pacman -S yay
+```
+
+Update the package lists before installing `wine`:
 ```bash
 sudo apt update || sudo pacman -Syu
 sudo apt install wine || sudo pacman -S wine
-````
+```
+
+If you prefer the new `wine-staging` then:
+
+```bash
+# Debian / Ubuntu
+sudo apt install --install-recommends winehq-staging
+
+# Arch / Artix
+sudo pacman -S wine-staging
+sudo pacman -S wine-staging # If you using aur
+```
 
 * **Enable 32-bit architecture and install `wine32`** (Some actions require root access, not just sudo):
-
+* 
+  > **NOTE:** <br>
+  > If you picked the new `wine-staging` setup you can skip this!
+  
   ```bash
   # Debian / Ubuntu
   su  # log in as root
