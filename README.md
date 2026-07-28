@@ -1,185 +1,254 @@
-<h1 align="center">🎹 Install Spitfire LABS with Wine on Linux</h1>
+<h1 align="center">🎹 Spitfire LABS — Linux Installation Guide</h1>
 
-Making music on older hardware can be challenging these days—especially with modern tools like Spitfire LABS requiring at least an Intel i5 or AMD Ryzen 5 CPU. Personally, I liked the older versions of LABS, where it didn’t rely on WebView2 for the interface. But things change, and with Microsoft planning to end support for Windows 10, I decided to switch to Linux (Debian 13) and set up LABS using Wine.
+<p align="center">
+  A step-by-step guide to installing Spitfire LABS VST on Linux using Wine.<br>
+  Tested on <b>Debian 13</b>, <b>Debian 12.11</b>, <b>Devuan</b>, <b>Arch Linux</b>, and <b>Artix Linux</b>.
+</p>
 
-> [!important]
-> 📝 **Tested On:** Debian 13 (likely works on Debian 12.11), Arch Linux, and Artix Linux... <br>
-> 🧪 **DAW Used:** LMMS 1.3.0-alpha (not tested with Ardour or others)
->
+<p align="center">
+  <img src="https://img.shields.io/badge/DAW-LMMS%201.3.0--alpha-blue" alt="DAW">
+  <img src="https://img.shields.io/badge/Wine-10.0%20%7C%2011.1--staging-orange" alt="Wine">
+  <img src="https://img.shields.io/badge/Status-Works%20%F0%9F%8E%A8-brightgreen" alt="Status">
+</p>
 
-___
+---
 
-## ✅ Step 1 – Install Wine and Dependencies
+## Table of Contents
 
-Install `wine-stable` (Wine 10.0, or similar) and required dependencies.
+- [Prerequisites](#prerequisites)
+- [Step 1 — Install Wine and Dependencies](#step-1--install-wine-and-dependencies)
+- [Step 2 — Install Winetricks and Runtime Components](#step-2--install-winetricks-and-runtime-components)
+- [Step 3 — Configure Wine and Install WebView2](#step-3--configure-wine-and-install-webview2)
+- [Step 4 — Install Graphics Packages](#step-4--install-graphics-packages)
+- [Step 5 — Install a DAW](#step-5--install-a-daw)
+- [Troubleshooting](#troubleshooting)
+- [Sources](#sources)
 
-  I recently tested it on `wine-stagging` version 11.1 and it works pretty well since they fixed this [#56378](https://bugs.winehq.org/show_bug.cgi?id=56378) bug, to set it up do the following:
+---
 
-  ```bash
-  # Debian / Ubuntu
-  sudo mkdir -pm755 /etc/apt/keyrings
-  wget -O - https://dl.winehq.org/wine-builds/winehq.key | sudo gpg --dearmor -o /etc/apt/keyrings/winehq-archive.key -
+## Prerequisites
 
-  # Arch / Artix
-  # You don't need to setup anything or you setup your aur
-  sudo pacman -S yay
+| Requirement | Details |
+|---|---|
+| **OS** | Debian 13 (or 12.11), Arch Linux, or Artix Linux |
+| **Wine** | wine-stable 10.0+ or wine-staging 11.1+ |
+| **DAW** | LMMS 1.3.0-alpha (VST support required) |
+| **GPU** | Any GPU with working Linux drivers |
+
+> [!NOTE]
+> wine-staging 11.1+ is recommended as it fixes [#56378](https://bugs.winehq.org/show_bug.cgi?id=56378), which is required for WebView2 compatibility.
+
+---
+
+## Step 1 — Install Wine and Dependencies
+
+### 1.1 Add the WineHQ Repository
+
+**Debian / Ubuntu:**
+
+```bash
+sudo mkdir -pm755 /etc/apt/keyrings
+wget -O - https://dl.winehq.org/wine-builds/winehq.key | sudo gpg --dearmor -o /etc/apt/keyrings/winehq-archive.key -
 ```
 
-Update the package lists before installing `wine`:
+**Arch / Artix:**
+
 ```bash
+sudo pacman -S yay
+```
+
+### 1.2 Install Wine
+
+```bash
+# Update package lists
 sudo apt update || sudo pacman -Syu
+
+# Install wine-stable
 sudo apt install wine || sudo pacman -S wine
 ```
 
-If you prefer the new `wine-staging` then:
+<details>
+<summary><b>Or install wine-staging (recommended)</b></summary>
+
+**Debian / Ubuntu:**
 
 ```bash
-# Debian / Ubuntu
 sudo apt install --install-recommends winehq-staging
-
-# Arch / Artix
-sudo pacman -S wine-staging
-yay -S wine-staging # If you using aur
 ```
 
-* **Enable 32-bit architecture and install `wine32`** (Some actions require root access, not just sudo):
- 
-  > **NOTE:** <br>
-  > If you picked the new `wine-staging` setup you can skip this!
-  
-  ```bash
-  # Debian / Ubuntu
-  su  # log in as root
-  dpkg --add-architecture i386
-  apt update
-  apt install wine32:i386
-  exit
-  ```
-
-  ```bash
-  # Arch / Artix
-  sudo pacman -S lib32-wine
-  ```
-
-* **Install `winbind`** (required for WebView2 to avoid admin errors):
-
-  ```bash
-  # Debian / Ubuntu
-  sudo apt install winbind
-
-  # Arch / Artix
-  sudo pacman -S winbind
-  ```
-
-* **Now Install a DAW**
-  Make sure your DAW supports VST plugins through Wine — LMMS does.
-
-  > **NOTE:** <br>
-  > *If you're using `lmms`, make sure it uses the **alpha version**, or VST plugins might not be supported in some stable releases. You can use **Pacstall** as an alternative installation method to install the alpha version of `lmms`.*
-
-  ```bash
-  # Debian / Ubuntu
-  # If it is already in alpha (Which is likely not the case)
-  sudo apt install lmms
-
-  # Or use Pacstall to install LMMS
-  sudo pacstall -I lmms-git
-  ```
-
-  ```bash
-  # Arch / Artix
-  sudo pacman -S lmms
-  # Or install the Git version from AUR (alpha build)
-  yay -S lmms-git
-  ```
-
-## 📦 Step 2 – Install Winetricks, VC++ Redistributable, .NET, and etc...
-
-To some debian based distros, Winetricks may not be included by default. You can get the official `.deb` package from [Debian Packages](https://packages.debian.org/trixie/winetricks). If there are dependency issues, run:
+**Arch / Artix:**
 
 ```bash
-# Debian / Ubuntu 
-sudo apt --fix-broken install
+sudo pacman -S wine-staging
+yay -S wine-staging  # If using AUR
 ```
 
-* **Then install Winetricks and required components:**
-  ```bash
-  # Debian / Ubuntu
-  sudo apt install winetricks
-  # Or in pacstall
-  sudo pacstall -I winetricks-git
-  # Arch / Artix
-  sudo pacman -S winetricks
-  ```
+</details>
 
-  ```bash
-  winetricks -q vcrun2015 dotnet472 dotnet48 corefonts gdiplus
-  ```
-  
+### 1.3 Enable 32-bit Architecture
 
-### ⚙️ Step 3 – Setup WebView2 and Wine Configuration
+> [!IMPORTANT]
+> Skip this step if you installed wine-staging.
 
-* **Set Wine to Windows 7 mode (for WebView2 compatibility):**
+**Debian / Ubuntu** (requires root, not just sudo):
 
-  ```bash
-  winecfg
-  # In the GUI, set Windows Version to "Windows 7", then Apply and OK.
-  ```
+```bash
+su
+dpkg --add-architecture i386
+apt update
+apt install wine32:i386
+exit
+```
 
-* **Download and install the WebView2 Runtime:**
+**Arch / Artix:**
 
-  You can get it from the [official Microsoft page](https://developer.microsoft.com/en-us/microsoft-edge/webview2) or use this direct installer link:
-  [WebView2 Evergreen Installer](https://go.microsoft.com/fwlink/p/?LinkId=2124703)
+```bash
+sudo pacman -S lib32-wine
+```
 
-  > **WARNING:** <br>
-  > *Do not use the standalone installer, cause it will install the 136.x.x version of Webview2 where it will just crash after launching LABS...*
+### 1.4 Install Winbind
 
-  ```bash
-  wine ~/path/to/MicrosoftEdgeWebView2Setup.exe
-  ```
+Required for WebView2 to avoid admin errors.
 
-## 🎨 Step 4 – Install Wine Graphics Packages (for rendering support)
+```bash
+sudo apt install winbind       # Debian / Ubuntu
+sudo pacman -S winbind         # Arch / Artix
+```
 
-Depending on your setup:
+---
 
-* **DirectX 10**:
+## Step 2 — Install Winetricks and Runtime Components
 
-  ```bash
-  winetricks d3dx10
-  ```
+### 2.1 Install Winetricks
 
-* **Vulkan (Recommended)**:
+```bash
+sudo apt install winetricks              # Debian / Ubuntu
+sudo pacstall -I winetricks-git          # Debian / Ubuntu (alternative)
+sudo pacman -S winetricks                # Arch / Artix
+```
 
-  ```bash
-  winetricks dxvk
-  ```
+> [!TIP]
+> If winetricks is not available in your repos, download the `.deb` from [Debian Packages](https://packages.debian.org/trixie/winetricks) and run `sudo apt --fix-broken install` if there are dependency issues.
 
-* **Optional**: Check your graphics capabilities:
+### 2.2 Install Required Components
 
-  ```bash
-  winetricks dxdiag
-  ```
+```bash
+winetricks -q vcrun2019 dotnet472 dotnet48 corefonts gdiplus msxml6 iertutil
+```
 
-***Then, Try running LMMS and loading the LABS VST. If it opens and displays properly, you’re good to go.***
+| Component | Purpose |
+|---|---|
+| `vcrun2019` | Visual C++ 2019 Redistributable |
+| `dotnet472` / `dotnet48` | .NET Framework runtime |
+| `corefonts` | Microsoft core fonts |
+| `gdiplus` | GDI+ graphics library |
+| `msxml6` | MSXML 6.0 parser |
+| `iertutil` | Internet Explorer runtime utilities |
 
-## ℹ️  More Info
+---
 
-* **❌ If It Still Doesn't Work:**
+## Step 3 — Configure Wine and Install WebView2
 
-  * You can try downgrading to an older version of LABS link [here](https://github.com/aKqir24/Spitfire-LABS-Installation-Guide-In-Linux/blob/main/LABS.dll.zip).
+### 3.1 Set Windows Version
 
-  ```bash
-    # Well Your In Linux So Do This
-    curl -0 https://github.com/aKqir24/Spitfire-LABS-Installation-Guide-In-Linux/raw/refs/heads/main/LABS.dll.zip
-    # Or Use
-    wget https://github.com/aKqir24/Spitfire-LABS-Installation-Guide-In-Linux/raw/refs/heads/main/LABS.dll.zip
-  ```
+```bash
+winecfg
+```
 
-  * Try **Wine 9.1** or **Wine-Staging**, but be aware it may be unstable.
-  * Ensure your GPU drivers are working properly and that your Wine prefix is clean.
+In the GUI, set **Windows Version** to **Windows 7**, then click **Apply** → **OK**.
 
-* **🔗 Sources:**
+### 3.2 Install WebView2
 
-  * https://www.reddit.com/r/Lutris/comments/rpomzv/you_do_not_have_the_microsoft_webview2_runtime
-  * https://bbs.archlinux.org/viewtopic.php?id=287582
-  * https://forum.winehq.org/viewtopic.php?t=38443
+Download the [WebView2 Evergreen Bootstrapper](https://go.microsoft.com/fwlink/p/?LinkId=2124703) and install it:
+
+```bash
+wine ~/Downloads/MicrosoftEdgeWebView2Setup.exe
+```
+
+> [!WARNING]
+> Do **not** use the standalone installer. It installs version 136.x.x which crashes when launching LABS. Always use the bootstrapper link above.
+
+---
+
+## Step 4 — Install Graphics Packages
+
+Choose **one** of the following based on your GPU:
+
+| Option | Command | Best For |
+|---|---|---|
+| **Vulkan** (recommended) | `winetricks dxvk` | Modern GPUs (NVIDIA, AMD) |
+| **DirectX 10** | `winetricks d3dx10` | Older or Intel GPUs |
+
+To check your graphics capabilities:
+
+```bash
+winetricks dxdiag
+```
+
+---
+
+## Step 5 — Install a DAW
+
+> [!IMPORTANT]
+> Your DAW must support VST plugins through Wine. LMMS is recommended.
+
+**Debian / Ubuntu:**
+
+```bash
+sudo apt install lmms                          # Stable (may lack VST support)
+sudo pacstall -I lmms-git                      # Alpha (recommended)
+```
+
+**Arch / Artix:**
+
+```bash
+sudo pacman -S lmms                            # Stable
+yay -S lmms-git                                # Alpha (recommended)
+```
+
+---
+
+## Troubleshooting
+
+### LABS Doesn't Open or Crashes
+
+1. **Downgrade LABS** — Use the older [LABS.dll](https://github.com/aKqir24/Spitfire-LABS-Installation-Guide-In-Linux/blob/main/LABS.dll.zip):
+
+   ```bash
+   curl -O https://github.com/aKqir24/Spitfire-LABS-Installation-Guide-In-Linux/raw/refs/heads/main/LABS.dll.zip
+   ```
+
+2. **Try wine-staging** — If using wine-stable, switch to wine-staging (may be less stable).
+
+3. **Check GPU drivers** — Ensure your drivers are up to date and your Wine prefix is clean:
+
+   ```bash
+   rm -rf ~/.wine
+   wineboot --init
+   ```
+
+### Webview Cannot Be Installed even when it is not installed
+
+Just go to `~/.wine/system.reg` of your wine folder, then open it in your IDE and
+Search for `Webview`.
+
+You should see lines like these, when you see it remove it and save the file.
+This usually happens if you install the `Webview` in win10 or a much latest installer.
+```txt
+
+[Software\\Wow6432Node\\Microsoft\\EdgeUpdate\\Clients\\{F3017226-FE2A-4295-8BDF-00C3A9A7E4C5}] 1785220019
+#time=1dd1e5a189fca4e
+"location"="C:\\Program Files (x86)\\Microsoft\\EdgeWebView\\Application"
+"name"="Microsoft Edge WebView2 Runtime"
+"pv"="109.0.1518.140"
+"SilentUninstall"="\"C:\\Program Files (x86)\\Microsoft\\EdgeWebView\\Application\\109.0.1518.140\\Installer\\setup.exe\" --force-uninstall --uninstall --msedgewebview --system-level --verbose-logging"
+
+```
+
+---
+
+## Sources
+
+- [Wine + WebView2 — Reddit / Lutris](https://www.reddit.com/r/Lutris/comments/rpomzv/you_do_not_have_the_microsoft_webview2_runtime)
+- [Wine + WebView2 — Arch Linux Forums](https://bbs.archlinux.org/viewtopic.php?id=287582)
+- [WineHQ Forum — WebView2 Discussion](https://forum.winehq.org/viewtopic.php?t=38443)
