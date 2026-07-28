@@ -1,0 +1,89 @@
+name: Deploy Spitfire LABS Guide to GitHub Pages
+
+on:
+  push:
+    branches: [ "main", "master" ]
+  workflow_dispatch:
+
+permissions:
+  contents: read
+  pages: write
+  id-token: write
+
+concurrency:
+  group: "pages"
+  cancel-in-progress: false
+
+jobs:
+  deploy:
+    environment:
+      name: github-pages
+      url: ${{ steps.deployment.outputs.page_url }}
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Setup Pages
+        uses: actions/configure-pages@v4
+
+      - name: Prepare Site from README.md
+        run: |
+          mkdir -p _site
+          touch _site/.nojekyll
+          python3 -c '
+          html = """<!DOCTYPE html>
+          <html lang="en">
+          <head>
+              <meta charset="UTF-8">
+              <meta name="viewport" content="width=device-width, initial-scale=1">
+              <meta http-equiv="X-UA-Compatible" content="ie=edge">
+              <meta name="google" content="notranslate">
+              <title>Spitfire LABS — Linux Installation Guide</title>
+              <link rel="icon" href="data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 100 100%22><text y=%22.9em%22 font-size=%2290%22>🎹</text></svg>">
+              <link rel="preconnect" href="https://fonts.googleapis.com">
+              <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+              <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+              <link href="https://cdn.jsdelivr.net/npm/beercss@4.0.23/dist/cdn/beer.min.css" rel="stylesheet">
+              <script type="module" src="https://cdn.jsdelivr.net/npm/beercss@4.0.23/dist/cdn/beer.min.js"></script>
+              <script type="module" src="https://cdn.jsdelivr.net/npm/material-dynamic-colors@1.1.4/dist/cdn/material-dynamic-colors.min.js"></script>
+              <script type="module">
+                import { ui } from "https://cdn.jsdelivr.net/npm/beercss@4.0.23/dist/cdn/beer.min.js";
+                import "https://cdn.jsdelivr.net/npm/material-dynamic-colors@1.1.4/dist/cdn/material-dynamic-colors.min.js";
+                document.addEventListener("DOMContentLoaded", () => {
+                  if (typeof ui === "function") {
+                    ui();
+                    ui("theme");
+                  }
+                });
+              </script>
+              <style>
+                body {
+                  font-family: '\''Inter'\'', sans-serif !important;
+                }
+              </style>
+          </head>
+          <body class="page|dark">
+          """
+          with open("README.md", "r", encoding="utf-8") as f:
+              content = f.read()
+          html += content
+          html += """
+          </body>
+          </html>
+          """
+          with open("_site/index.html", "w", encoding="utf-8") as f:
+              f.write(html)
+          '
+          if [ -f LABS.dll.zip ]; then
+            cp LABS.dll.zip _site/
+          fi
+
+      - name: Upload artifact
+        uses: actions/upload-pages-artifact@v3
+        with:
+          path: '_site'
+
+      - name: Deploy to GitHub Pages
+        id: deployment
+        uses: actions/deploy-pages@v4
