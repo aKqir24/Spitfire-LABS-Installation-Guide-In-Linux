@@ -1,254 +1,336 @@
-<h1 align="center">🎹 Spitfire LABS — Linux Installation Guide</h1>
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <meta name="google" content="notranslate">
+    <title>Spitfire LABS — Linux Installation Guide</title>
+    <link href="https://cdn.jsdelivr.net/npm/beercss@4.0.23/dist/cdn/beer.min.css" rel="stylesheet">
+    <script type="module" src="https://cdn.jsdelivr.net/npm/beercss@4.0.23/dist/cdn/beer.min.js"></script>
+    <script type="module" src="https://cdn.jsdelivr.net/npm/material-dynamic-colors@1.1.4/dist/cdn/material-dynamic-colors.min.js"></script>
+</head>
+<body class="page">
 
-<p align="center">
-  A step-by-step guide to installing Spitfire LABS VST on Linux using Wine.<br>
-  Tested on <b>Debian 13</b>, <b>Debian 12.11</b>, <b>Devuan</b>, <b>Arch Linux</b>, and <b>Artix Linux</b>.
-</p>
+<main class="responsive max">
 
-<p align="center">
-  <img src="https://img.shields.io/badge/DAW-LMMS%201.3.0--alpha-blue" alt="DAW">
-  <img src="https://img.shields.io/badge/Wine-10.0%20%7C%2011.1--staging-orange" alt="Wine">
-  <img src="https://img.shields.io/badge/Status-Works%20%F0%9F%8E%A8-brightgreen" alt="Status">
-</p>
+  <h1 class="center-align">🎹 Spitfire LABS — Linux Installation Guide</h1>
 
----
+  <p class="center-align">
+    A step-by-step guide to installing Spitfire LABS VST on Linux using Wine.<br>
+    Tested on <b>Debian 13</b>, <b>Debian 12.11</b>, <b>Devuan</b>, <b>Arch Linux</b>, and <b>Artix Linux</b>.
+  </p>
 
-## Table of Contents
+  <p class="center-align">
+    <img src="https://img.shields.io/badge/DAW-LMMS%201.3.0--alpha-blue" alt="DAW">
+    <img src="https://img.shields.io/badge/Wine-10.0%20%7C%2011.1--staging-orange" alt="Wine">
+    <img src="https://img.shields.io/badge/Status-Works%20%F0%9F%8E%A8-brightgreen" alt="Status">
+  </p>
 
-- [Prerequisites](#prerequisites)
-- [Step 1 — Install Wine and Dependencies](#step-1--install-wine-and-dependencies)
-- [Step 2 — Install Winetricks and Runtime Components](#step-2--install-winetricks-and-runtime-components)
-- [Step 3 — Configure Wine and Install WebView2](#step-3--configure-wine-and-install-webview2)
-- [Step 4 — Install Graphics Packages](#step-4--install-graphics-packages)
-- [Step 5 — Install a DAW](#step-5--install-a-daw)
-- [Troubleshooting](#troubleshooting)
-- [Sources](#sources)
+  <div class="space"></div>
+  <hr class="divider">
+  <div class="space"></div>
 
----
+  <h2>Table of Contents</h2>
+  <ul>
+    <li><a href="#prerequisites">Prerequisites</a></li>
+    <li><a href="#step-1--install-wine-and-dependencies">Step 1 — Install Wine and Dependencies</a></li>
+    <li><a href="#step-2--install-winetricks-and-runtime-components">Step 2 — Install Winetricks and Runtime Components</a></li>
+    <li><a href="#step-3--configure-wine-and-install-webview2">Step 3 — Configure Wine and Install WebView2</a></li>
+    <li><a href="#step-4--install-graphics-packages">Step 4 — Install Graphics Packages</a></li>
+    <li><a href="#step-5--install-a-daw">Step 5 — Install a DAW</a></li>
+    <li><a href="#troubleshooting">Troubleshooting</a></li>
+    <li><a href="#sources">Sources</a></li>
+  </ul>
 
-## Prerequisites
+  <div class="space"></div>
+  <hr class="divider">
+  <div class="space"></div>
 
-| Requirement | Details |
-|---|---|
-| **OS** | Debian 13 (or 12.11), Arch Linux, or Artix Linux |
-| **Wine** | wine-stable 10.0+ or wine-staging 11.1+ |
-| **DAW** | LMMS 1.3.0-alpha (VST support required) |
-| **GPU** | Any GPU with working Linux drivers |
+  <h2 id="prerequisites">Prerequisites</h2>
 
-> [!NOTE]
-> wine-staging 11.1+ is recommended as it fixes [#56378](https://bugs.winehq.org/show_bug.cgi?id=56378), which is required for WebView2 compatibility.
+  <table class="border">
+    <thead>
+      <tr>
+        <th>Requirement</th>
+        <th>Details</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><b>OS</b></td>
+        <td>Debian 13 (or 12.11), Arch Linux, or Artix Linux</td>
+      </tr>
+      <tr>
+        <td><b>Wine</b></td>
+        <td>wine-stable 10.0+ or wine-staging 11.1+</td>
+      </tr>
+      <tr>
+        <td><b>DAW</b></td>
+        <td>LMMS 1.3.0-alpha (VST support required)</td>
+      </tr>
+      <tr>
+        <td><b>GPU</b></td>
+        <td>Any GPU with working Linux drivers</td>
+      </tr>
+    </tbody>
+  </table>
 
----
+  <blockquote class="card surface border left-align padding">
+    <b>NOTE:</b>
+    wine-staging 11.1+ is recommended as it fixes
+    <a href="https://bugs.winehq.org/show_bug.cgi?id=56378">#56378</a>, which is required for WebView2 compatibility.
+  </blockquote>
 
-## Step 1 — Install Wine and Dependencies
+  <div class="space"></div>
+  <hr class="divider">
+  <div class="space"></div>
 
-### 1.1 Add the WineHQ Repository
+  <h2 id="step-1--install-wine-and-dependencies">Step 1 — Install Wine and Dependencies</h2>
 
-**Debian / Ubuntu:**
+  <h3>1.1 Add the WineHQ Repository</h3>
 
-```bash
-sudo mkdir -pm755 /etc/apt/keyrings
-wget -O - https://dl.winehq.org/wine-builds/winehq.key | sudo gpg --dearmor -o /etc/apt/keyrings/winehq-archive.key -
-```
+  <p><b>Debian / Ubuntu:</b></p>
 
-**Arch / Artix:**
+  <pre class="surface border padding round"><code>sudo mkdir -pm755 /etc/apt/keyrings
+wget -O - https://dl.winehq.org/wine-builds/winehq.key | sudo gpg --dearmor -o /etc/apt/keyrings/winehq-archive.key -</code></pre>
 
-```bash
-sudo pacman -S yay
-```
+  <p><b>Arch / Artix:</b></p>
 
-### 1.2 Install Wine
+  <pre class="surface border padding round"><code>sudo pacman -S yay</code></pre>
 
-```bash
-# Update package lists
+  <h3>1.2 Install Wine</h3>
+
+  <pre class="surface border padding round"><code># Update package lists
 sudo apt update || sudo pacman -Syu
 
 # Install wine-stable
-sudo apt install wine || sudo pacman -S wine
-```
+sudo apt install wine || sudo pacman -S wine</code></pre>
 
-<details>
-<summary><b>Or install wine-staging (recommended)</b></summary>
+  <details class="surface border padding round">
+    <summary><b>Or install wine-staging (recommended)</b></summary>
+    <div class="space"></div>
+    <p><b>Debian / Ubuntu:</b></p>
+    <pre class="surface border padding round"><code>sudo apt install --install-recommends winehq-staging</code></pre>
+    <p><b>Arch / Artix:</b></p>
+    <pre class="surface border padding round"><code>sudo pacman -S wine-staging
+yay -S wine-staging  # If using AUR</code></pre>
+  </details>
 
-**Debian / Ubuntu:**
+  <h3>1.3 Enable 32-bit Architecture</h3>
 
-```bash
-sudo apt install --install-recommends winehq-staging
-```
+  <blockquote class="card surface border left-align padding">
+    <b>IMPORTANT:</b>
+    Skip this step if you installed wine-staging.
+  </blockquote>
 
-**Arch / Artix:**
+  <p><b>Debian / Ubuntu</b> (requires root, not just sudo):</p>
 
-```bash
-sudo pacman -S wine-staging
-yay -S wine-staging  # If using AUR
-```
-
-</details>
-
-### 1.3 Enable 32-bit Architecture
-
-> [!IMPORTANT]
-> Skip this step if you installed wine-staging.
-
-**Debian / Ubuntu** (requires root, not just sudo):
-
-```bash
-su
+  <pre class="surface border padding round"><code>su
 dpkg --add-architecture i386
 apt update
 apt install wine32:i386
-exit
-```
+exit</code></pre>
 
-**Arch / Artix:**
+  <p><b>Arch / Artix:</b></p>
 
-```bash
-sudo pacman -S lib32-wine
-```
+  <pre class="surface border padding round"><code>sudo pacman -S lib32-wine</code></pre>
 
-### 1.4 Install Winbind
+  <h3>1.4 Install Winbind</h3>
 
-Required for WebView2 to avoid admin errors.
+  <p>Required for WebView2 to avoid admin errors.</p>
 
-```bash
-sudo apt install winbind       # Debian / Ubuntu
-sudo pacman -S winbind         # Arch / Artix
-```
+  <pre class="surface border padding round"><code>sudo apt install winbind       # Debian / Ubuntu
+sudo pacman -S winbind         # Arch / Artix</code></pre>
 
----
+  <div class="space"></div>
+  <hr class="divider">
+  <div class="space"></div>
 
-## Step 2 — Install Winetricks and Runtime Components
+  <h2 id="step-2--install-winetricks-and-runtime-components">Step 2 — Install Winetricks and Runtime Components</h2>
 
-### 2.1 Install Winetricks
+  <h3>2.1 Install Winetricks</h3>
 
-```bash
-sudo apt install winetricks              # Debian / Ubuntu
+  <pre class="surface border padding round"><code>sudo apt install winetricks              # Debian / Ubuntu
 sudo pacstall -I winetricks-git          # Debian / Ubuntu (alternative)
-sudo pacman -S winetricks                # Arch / Artix
-```
+sudo pacman -S winetricks                # Arch / Artix</code></pre>
 
-> [!TIP]
-> If winetricks is not available in your repos, download the `.deb` from [Debian Packages](https://packages.debian.org/trixie/winetricks) and run `sudo apt --fix-broken install` if there are dependency issues.
+  <blockquote class="card surface border left-align padding">
+    <b>TIP:</b>
+    If winetricks is not available in your repos, download the <code>.deb</code> from
+    <a href="https://packages.debian.org/trixie/winetricks">Debian Packages</a> and run
+    <code>sudo apt --fix-broken install</code> if there are dependency issues.
+  </blockquote>
 
-### 2.2 Install Required Components
+  <h3>2.2 Install Required Components</h3>
 
-```bash
-winetricks -q vcrun2019 dotnet472 dotnet48 corefonts gdiplus msxml6 iertutil
-```
+  <pre class="surface border padding round"><code>winetricks -q vcrun2019 dotnet472 dotnet48 corefonts gdiplus msxml6 iertutil</code></pre>
 
-| Component | Purpose |
-|---|---|
-| `vcrun2019` | Visual C++ 2019 Redistributable |
-| `dotnet472` / `dotnet48` | .NET Framework runtime |
-| `corefonts` | Microsoft core fonts |
-| `gdiplus` | GDI+ graphics library |
-| `msxml6` | MSXML 6.0 parser |
-| `iertutil` | Internet Explorer runtime utilities |
+  <table class="border">
+    <thead>
+      <tr>
+        <th>Component</th>
+        <th>Purpose</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><code>vcrun2019</code></td>
+        <td>Visual C++ 2019 Redistributable</td>
+      </tr>
+      <tr>
+        <td><code>dotnet472</code> / <code>dotnet48</code></td>
+        <td>.NET Framework runtime</td>
+      </tr>
+      <tr>
+        <td><code>corefonts</code></td>
+        <td>Microsoft core fonts</td>
+      </tr>
+      <tr>
+        <td><code>gdiplus</code></td>
+        <td>GDI+ graphics library</td>
+      </tr>
+      <tr>
+        <td><code>msxml6</code></td>
+        <td>MSXML 6.0 parser</td>
+      </tr>
+      <tr>
+        <td><code>iertutil</code></td>
+        <td>Internet Explorer runtime utilities</td>
+      </tr>
+    </tbody>
+  </table>
 
----
+  <div class="space"></div>
+  <hr class="divider">
+  <div class="space"></div>
 
-## Step 3 — Configure Wine and Install WebView2
+  <h2 id="step-3--configure-wine-and-install-webview2">Step 3 — Configure Wine and Install WebView2</h2>
 
-### 3.1 Set Windows Version
+  <h3>3.1 Set Windows Version</h3>
 
-```bash
-winecfg
-```
+  <pre class="surface border padding round"><code>winecfg</code></pre>
 
-In the GUI, set **Windows Version** to **Windows 7**, then click **Apply** → **OK**.
+  <p>In the GUI, set <b>Windows Version</b> to <b>Windows 7</b>, then click <b>Apply</b> → <b>OK</b>.</p>
 
-### 3.2 Install WebView2
+  <h3>3.2 Install WebView2</h3>
 
-Download the [WebView2 Evergreen Bootstrapper](https://go.microsoft.com/fwlink/p/?LinkId=2124703) and install it:
+  <p>Download the <a href="https://go.microsoft.com/fwlink/p/?LinkId=2124703">WebView2 Evergreen Bootstrapper</a> and install it:</p>
 
-```bash
-wine ~/Downloads/MicrosoftEdgeWebView2Setup.exe
-```
+  <pre class="surface border padding round"><code>wine ~/Downloads/MicrosoftEdgeWebView2Setup.exe</code></pre>
 
-> [!WARNING]
-> Do **not** use the standalone installer. It installs version 136.x.x which crashes when launching LABS. Always use the bootstrapper link above.
+  <blockquote class="card surface border left-align padding">
+    <b>WARNING:</b>
+    Do <b>not</b> use the standalone installer. It installs version 136.x.x which crashes when launching LABS. Always use the bootstrapper link above.
+  </blockquote>
 
----
+  <div class="space"></div>
+  <hr class="divider">
+  <div class="space"></div>
 
-## Step 4 — Install Graphics Packages
+  <h2 id="step-4--install-graphics-packages">Step 4 — Install Graphics Packages</h2>
 
-Choose **one** of the following based on your GPU:
+  <p>Choose <b>one</b> of the following based on your GPU:</p>
 
-| Option | Command | Best For |
-|---|---|---|
-| **Vulkan** (recommended) | `winetricks dxvk` | Modern GPUs (NVIDIA, AMD) |
-| **DirectX 10** | `winetricks d3dx10` | Older or Intel GPUs |
+  <table class="border">
+    <thead>
+      <tr>
+        <th>Option</th>
+        <th>Command</th>
+        <th>Best For</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><b>Vulkan</b> (recommended)</td>
+        <td><code>winetricks dxvk</code></td>
+        <td>Modern GPUs (NVIDIA, AMD)</td>
+      </tr>
+      <tr>
+        <td><b>DirectX 10</b></td>
+        <td><code>winetricks d3dx10</code></td>
+        <td>Older or Intel GPUs</td>
+      </tr>
+    </tbody>
+  </table>
 
-To check your graphics capabilities:
+  <p>To check your graphics capabilities:</p>
 
-```bash
-winetricks dxdiag
-```
+  <pre class="surface border padding round"><code>winetricks dxdiag</code></pre>
 
----
+  <div class="space"></div>
+  <hr class="divider">
+  <div class="space"></div>
 
-## Step 5 — Install a DAW
+  <h2 id="step-5--install-a-daw">Step 5 — Install a DAW</h2>
 
-> [!IMPORTANT]
-> Your DAW must support VST plugins through Wine. LMMS is recommended.
+  <blockquote class="card surface border left-align padding">
+    <b>IMPORTANT:</b>
+    Your DAW must support VST plugins through Wine. LMMS is recommended.
+  </blockquote>
 
-**Debian / Ubuntu:**
+  <p><b>Debian / Ubuntu:</b></p>
 
-```bash
-sudo apt install lmms                          # Stable (may lack VST support)
-sudo pacstall -I lmms-git                      # Alpha (recommended)
-```
+  <pre class="surface border padding round"><code>sudo apt install lmms                          # Stable (may lack VST support)
+sudo pacstall -I lmms-git                      # Alpha (recommended)</code></pre>
 
-**Arch / Artix:**
+  <p><b>Arch / Artix:</b></p>
 
-```bash
-sudo pacman -S lmms                            # Stable
-yay -S lmms-git                                # Alpha (recommended)
-```
+  <pre class="surface border padding round"><code>sudo pacman -S lmms                            # Stable
+yay -S lmms-git                                # Alpha (recommended)</code></pre>
 
----
+  <div class="space"></div>
+  <hr class="divider">
+  <div class="space"></div>
 
-## Troubleshooting
+  <h2 id="troubleshooting">Troubleshooting</h2>
 
-### LABS Doesn't Open or Crashes
+  <h3>LABS Doesn't Open or Crashes</h3>
 
-1. **Downgrade LABS** — Use the older [LABS.dll](https://github.com/aKqir24/Spitfire-LABS-Installation-Guide-In-Linux/blob/main/LABS.dll.zip):
+  <ol>
+    <li>
+      <b>Downgrade LABS</b> — Use the older
+      <a href="https://github.com/aKqir24/Spitfire-LABS-Installation-Guide-In-Linux/blob/main/LABS.dll.zip">LABS.dll</a>:
+      <pre class="surface border padding round"><code>curl -O https://github.com/aKqir24/Spitfire-LABS-Installation-Guide-In-Linux/raw/refs/heads/main/LABS.dll.zip</code></pre>
+    </li>
+    <li>
+      <b>Try wine-staging</b> — If using wine-stable, switch to wine-staging (may be less stable).
+    </li>
+    <li>
+      <b>Check GPU drivers</b> — Ensure your drivers are up to date and your Wine prefix is clean:
+      <pre class="surface border padding round"><code>rm -rf ~/.wine
+wineboot --init</code></pre>
+    </li>
+  </ol>
 
-   ```bash
-   curl -O https://github.com/aKqir24/Spitfire-LABS-Installation-Guide-In-Linux/raw/refs/heads/main/LABS.dll.zip
-   ```
+  <h3>Webview Cannot Be Installed even when it is not installed</h3>
 
-2. **Try wine-staging** — If using wine-stable, switch to wine-staging (may be less stable).
+  <p>Just go to <code>~/.wine/system.reg</code> of your wine folder, then open it in your IDE and
+  Search for <code>Webview</code>.</p>
 
-3. **Check GPU drivers** — Ensure your drivers are up to date and your Wine prefix is clean:
+  <p>You should see lines like these, when you see it remove it and save the file.
+  This usually happens if you install the <code>Webview</code> in win10 or a much latest installer.</p>
 
-   ```bash
-   rm -rf ~/.wine
-   wineboot --init
-   ```
-
-### Webview Cannot Be Installed even when it is not installed
-
-Just go to `~/.wine/system.reg` of your wine folder, then open it in your IDE and
-Search for `Webview`.
-
-You should see lines like these, when you see it remove it and save the file.
-This usually happens if you install the `Webview` in win10 or a much latest installer.
-```txt
-
-[Software\\Wow6432Node\\Microsoft\\EdgeUpdate\\Clients\\{F3017226-FE2A-4295-8BDF-00C3A9A7E4C5}] 1785220019
+  <pre class="surface border padding round"><code>[Software\\Wow6432Node\\Microsoft\\EdgeUpdate\\Clients\\{F3017226-FE2A-4295-8BDF-00C3A9A7E4C5}] 1785220019
 #time=1dd1e5a189fca4e
 "location"="C:\\Program Files (x86)\\Microsoft\\EdgeWebView\\Application"
 "name"="Microsoft Edge WebView2 Runtime"
 "pv"="109.0.1518.140"
-"SilentUninstall"="\"C:\\Program Files (x86)\\Microsoft\\EdgeWebView\\Application\\109.0.1518.140\\Installer\\setup.exe\" --force-uninstall --uninstall --msedgewebview --system-level --verbose-logging"
+"SilentUninstall"="\"C:\\Program Files (x86)\\Microsoft\\EdgeWebView\\Application\\109.0.1518.140\\Installer\\setup.exe\" --force-uninstall --uninstall --msedgewebview --system-level --verbose-logging"</code></pre>
 
-```
+  <div class="space"></div>
+  <hr class="divider">
+  <div class="space"></div>
 
----
+  <h2 id="sources">Sources</h2>
 
-## Sources
+  <ul>
+    <li><a href="https://www.reddit.com/r/Lutris/comments/rpomzv/you_do_not_have_the_microsoft_webview2_runtime">Wine + WebView2 — Reddit / Lutris</a></li>
+    <li><a href="https://bbs.archlinux.org/viewtopic.php?id=287582">Wine + WebView2 — Arch Linux Forums</a></li>
+    <li><a href="https://forum.winehq.org/viewtopic.php?t=38443">WineHQ Forum — WebView2 Discussion</a></li>
+  </ul>
 
-- [Wine + WebView2 — Reddit / Lutris](https://www.reddit.com/r/Lutris/comments/rpomzv/you_do_not_have_the_microsoft_webview2_runtime)
-- [Wine + WebView2 — Arch Linux Forums](https://bbs.archlinux.org/viewtopic.php?id=287582)
-- [WineHQ Forum — WebView2 Discussion](https://forum.winehq.org/viewtopic.php?t=38443)
+</main>
+
+</body>
+</html>
