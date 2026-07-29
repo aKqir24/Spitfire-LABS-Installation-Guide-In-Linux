@@ -43,6 +43,7 @@ jobs:
               <link rel="icon" href="data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 100 100%22><text y=%22.9em%22 font-size=%2290%22>🎹</text></svg>">
               <link rel="preconnect" href="https://fonts.googleapis.com">
               <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+              <link href="https://fonts.googleapis.com/css2?family=Google+Sans:ital,opsz,wght@0,17..18,400..700;1,17..18,400..700&display=swap" rel="stylesheet">
               <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
               <link href="https://cdn.jsdelivr.net/npm/beercss@4.0.23/dist/cdn/beer.min.css" rel="stylesheet">
               <script type="module" src="https://cdn.jsdelivr.net/npm/beercss@4.0.23/dist/cdn/beer.min.js"></script>
@@ -58,12 +59,57 @@ jobs:
                 });
               </script>
               <style>
-                body {
-                  font-family: '\''Inter'\'', sans-serif !important;
-                }
+                  body { font-family: "Google Sans", sans-serif !important }
+                  nav { background-color: var(--surface-container-low) !important }
+                  main { padding: 4em }
+
+                  /* Adjusted Code Blocks & Comment Visibility */
+                  pre.scroll {
+                      background-color: var(--surface-container-highest) !important;
+                      color: var(--on-surface-variant);
+                      border: 1px solid var(--outline-variant) !important;
+                      border-radius: 16px !important;
+                      padding: 0.85rem 1rem;
+                      margin: 0.75rem 0;
+                      overflow-x: auto;
+                  }
+                  pre.scroll code {
+                      color: var(--on-surface);
+                  }
+                  pre.scroll .comment,
+                  pre.scroll span.comment {
+                      color: var(--tertiary) !important;
+                      font-style: italic;
+                  }
+                  code {
+                      background-color: transparent;
+                  }
               </style>
           </head>
           <body class="page|dark">
+          <nav class="left max drawer">
+              <div style="margin-left: 2em;" class="padding">
+                  <h6 class="bold no-space" style="color: var(--primary);">Spitfire LABS</h6>
+                  <d class="text-secondary small bold">Linux Installation Guide</d>
+              </div>
+              <div class="divider"></div>
+              <div class="space"></div>
+              <ul class="no-space">
+                  <li><a class="row wave docs-nav-link" href="#prerequisites"><i class="small">check_circle</i><span class="bold">Prerequisites</span></a></li>
+                  <li><a class="row wave docs-nav-link" href="#steps"><i class="small">list</i><span class="bold">Installation Steps</span></a></li>
+                  <li class="padding small" style="padding-left: 1.25rem;">
+                      <ul class="list">
+                          <li><a class="bold text-secondary" href="#install-wine-and-dependencies">1. Wine & Dependencies</a></li>
+                          <li><a class="bold text-secondary" href="#install-winetricks-and-runtime-components">2. Winetricks & Runtime</a></li>
+                          <li><a class="bold text-secondary" href="#configure-wine-and-install-webview2">3. Configure Wine & WebView2</a></li>
+                          <li><a class="bold text-secondary" href="#install-graphics-packages">4. Graphics Packages</a></li>
+                          <li><a class="bold text-secondary" href="#install-a-daw">5. Install a DAW</a></li>
+                      </ul>
+                  </li>
+                  <li><a class="row wave docs-nav-link" href="#troubleshooting"><i class="small">build</i><span class="bold">Troubleshooting</span></a></li>
+                  <li><a class="row wave docs-nav-link" href="#sources"><i class="small">link</i><span class="bold">Sources & References</span></a></li>
+              </ul>
+          </nav>
           """
           with open("README.md", "r", encoding="utf-8") as f:
               content = f.read()
