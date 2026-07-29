@@ -2,7 +2,7 @@
         <div style="padding: 50px;" class="medium-space grid">
             <div align="center" class="s12">
               <h1 class="heading medium bold">🎹 Spitfire LABS</h1>
-              <h4 class="heading small">Linux Installation Guide</h4>
+              <h4 class="heading small">Linux Installation Guide (<a class="link" href="https://akqir24.github.io/Spitfire-LABS-Installation-Guide-In-Linux/">Check Out In Website</a>)</h4>
               <p>
                 A step-by-step guide to installing Spitfire LABS VST on Linux using Wine.<br>
                 Tested on <b>Debian 13</b>, <b>Debian 12.11</b>, <b>Devuan</b>, <b>Arch Linux</b>, and <b>Artix Linux</b>.
@@ -44,7 +44,7 @@
             </tr>
         </tbody>
     </table>
-      <blockquote><i style="color: var(--primary);">info</i> <span class="large bold">NOTE</span>
+      <blockquote><span class="large bold"><b>NOTE</b></span>
         <br>wine-staging 11.1+ is recommended as it fixes <a class="link" href="https://bugs.winehq.org/show_bug.cgi?id=56378">#56378</a>, which is required for WebView2 compatibility.
       </blockquote>
       <div class="space"></div>
@@ -59,18 +59,17 @@
         <h5 class="heading small bold">Add the WineHQ Repository</h5>
         <p><b>Debian / Ubuntu:</b></p>
         <pre class="round padding scroll surface-container"><code>sudo mkdir -pm755 /etc/apt/keyrings
-    wget -O - https://dl.winehq.org/wine-builds/winehq.key | sudo gpg --dearmor -o /etc/apt/keyrings/winehq-archive.key -</code></pre>
+wget -O - https://dl.winehq.org/wine-builds/winehq.key | sudo gpg --dearmor -o /etc/apt/keyrings/winehq-archive.key -</code></pre>
         <p><b>Arch / Artix:</b></p>
         <pre class="border round padding scroll"><code>sudo pacman -S yay</code></pre>
         <h5 class="heading small bold">Install Wine</h5>
         <pre class="border round padding scroll"><code>sudo apt update || sudo pacman -Syu      # Update package lists
-    sudo apt install wine || sudo pacman -S wine        # Install wine-stable</code></pre>
+sudo apt install wine || sudo pacman -S wine        # Install wine-stable</code></pre>
         <details style="border-radius: 16px;" class="small-padding primary">
           <summary>
             <button>
                 <span><b>Or install wine-staging (recommended)</b></span>
-                <i>expand_more</i>
-                </button>
+            </button>
           </summary>
           <div class="small-padding">
             <p><b>Debian / Ubuntu:</b></p>
@@ -83,16 +82,16 @@
       <h5 class="heading small bold">Enable 32-bit Architecture</h5>
       <p><b>Debian / Ubuntu</b> (requires root, not just sudo):</p>
       <pre class="border round padding scroll"><code>su
-    dpkg --add-architecture i386
-    apt update
-    apt install wine32:i386
-    exit</code></pre>
+dpkg --add-architecture i386
+apt update
+apt install wine32:i386
+exit</code></pre>
       <p><b>Arch / Artix:</b></p>
       <pre class="border round padding scroll"><code>sudo pacman -S lib32-wine</code></pre>
       <h5 class="heading small bold">Install Winbind</h5>
       <p>Required for WebView2 to avoid admin errors.</p>
       <pre class="border round padding scroll"><code>sudo apt install winbind       # Debian / Ubuntu
-    sudo pacman -S winbind         # Arch / Artix</code></pre>
+sudo pacman -S winbind         # Arch / Artix</code></pre>
     </ul>
       <div class="space"></div>
       <div class="space"></div>
@@ -101,9 +100,9 @@
       <ul>
         <h5 class="heading small bold">Install Winetricks</h5>
         <pre class="border round padding scroll"><code>sudo apt install winetricks              # Debian / Ubuntu
-    sudo pacstall -I winetricks-git          # Debian / Ubuntu (alternative)
-    sudo pacman -S winetricks                # Arch / Artix</code></pre>
-        <blockquote><i style="color: var(--primary);">light</i> <span class="large bold">TIP</span>
+sudo pacstall -I winetricks-git          # Debian / Ubuntu (alternative)
+sudo pacman -S winetricks                # Arch / Artix</code></pre>
+        <blockquote><span class="large bold"><b>TIP</b></span>
           <br>If winetricks is not available in your repos, download the <code>.deb</code> from<a class="link" href="https://packages.debian.org/trixie/winetricks">Debian Packages</a> and run
           <code>sudo apt --fix-broken install</code> if there are dependency issues.
         </blockquote>
@@ -155,7 +154,7 @@
         <h5 class="heading small bold">Install WebView2</h3>
         <p>Download the <a class="link" href="https://go.microsoft.com/fwlink/p/?LinkId=2124703">WebView2 Evergreen Bootstrapper</a> and install it:</p>
         <pre class="border round padding scroll"><code>wine ~/Downloads/MicrosoftEdgeWebView2Setup.exe</code></pre>
-        <blockquote><i style="color: var(--primary);">warning</i> <span class="large bold">WARNING</span>
+        <blockquote><span class="large bold"><b>WARNING</b></span>
             <br>Do <b>not</b> use the standalone installer. It installs version 136.x.x which crashes when launching LABS. Always use the bootstrapper link above.
             <code>sudo apt --fix-broken install</code> if there are dependency issues.
         </blockquote>
@@ -193,7 +192,7 @@
             <div class="space"></div>
         <h4 class="heading small bold" id="install-a-daw">5. Install a DAW</h2>
         <ul>
-            <blockquote><i style="color: var(--primary);">info</i> <span class="large bold">IMPORTANT</span>
+            <blockquote><span class="large bold"><b>IMPORTANT</b></span>
                 <br>Do <b>not</b> use the standalone installer. It installs version 136.x.x which crashes when launching LABS. Always use the bootstrapper link above.
                 <code>sudo apt --fix-broken install</code> if there are dependency issues.
             </blockquote>
