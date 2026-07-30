@@ -16,42 +16,11 @@
               <script type="module" src="https://cdn.jsdelivr.net/npm/beercss@4.0.23/dist/cdn/beer.min.js"></script>
               <script type="module" src="https://cdn.jsdelivr.net/npm/material-dynamic-colors@1.1.4/dist/cdn/material-dynamic-colors.min.js"></script>
               <script type="module">
-                import { ui } from "https://cdn.jsdelivr.net/npm/beercss@4.0.23/dist/cdn/beer.min.js";
-                import "https://cdn.jsdelivr.net/npm/material-dynamic-colors@1.1.4/dist/cdn/material-dynamic-colors.min.js";
-                document.addEventListener("DOMContentLoaded", () => {
-                  if (typeof ui === "function") {
-                    ui();
-                    ui("theme");
-                  }
-                });
+                (async () => {
+                  let theme = await ui("theme", "studio-ghibli-tree-background-4k-scaled.jpg");
+                  let mode = ui("mode", "auto");
+                })();
               </script>
-              <style>
-                  body { font-family: "Google Sans", sans-serif !important }
-                  nav { background-color: var(--surface-container-low) !important }
-                  main { padding: 4em }
-
-                  /* Adjusted Code Blocks & Comment Visibility */
-                  pre.scroll {
-                      background-color: var(--surface-container-highest) !important;
-                      color: var(--on-surface-variant);
-                      border: 1px solid var(--outline-variant) !important;
-                      border-radius: 16px !important;
-                      padding: 0.85rem 1rem;
-                      margin: 0.75rem 0;
-                      overflow-x: auto;
-                  }
-                  pre.scroll code {
-                      color: var(--on-surface);
-                  }
-                  pre.scroll .comment,
-                  pre.scroll span.comment {
-                      color: var(--tertiary) !important;
-                      font-style: italic;
-                  }
-                  code {
-                      background-color: transparent;
-                  }
-              </style>
           </head>
           <body class="page|dark">
           <nav class="left max drawer">
@@ -74,6 +43,12 @@
                       </ul>
                   </li>
                   <li><a class="row wave docs-nav-link" href="#troubleshooting"><i class="small">build</i><span class="bold">Troubleshooting</span></a></li>
+                  <li class="padding small" style="padding-left: 1.25rem;">
+                      <ul class="list">
+                          <li><a class="bold text-secondary" href="#labs-crashes">- LABS Does not Open</a></li>
+                          <li><a class="bold text-secondary" href="#webview-cannot-install">- Webview Cannot Be Installed</a></li>
+                      </ul>
+                  </li>
                   <li><a class="row wave docs-nav-link" href="#sources"><i class="small">link</i><span class="bold">Sources & References</span></a></li>
               </ul>
           </nav>

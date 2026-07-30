@@ -45,7 +45,7 @@
         </tbody>
     </table>
       <blockquote><span class="large bold"><b>NOTE</b></span>
-        <br>wine-staging 11.1+ is recommended as it fixes <a class="link" href="https://bugs.winehq.org/show_bug.cgi?id=56378">#56378</a>, which is required for WebView2 compatibility.
+        <br><p>wine-staging 11.1+ is recommended as it fixes <a class="link" href="https://bugs.winehq.org/show_bug.cgi?id=56378">#56378</a>, which is required for WebView2 compatibility.</p>
       </blockquote>
       <div class="space"></div>
       <h3 id="steps" class="heading medium bold">Installation Steps</h3>
@@ -99,12 +99,12 @@ sudo pacman -S winbind         # Arch / Artix</code></pre>
       <div class="space"></div>
       <ul>
         <h5 class="heading small bold">Install Winetricks</h5>
-        <pre class="border round padding scroll"><code>sudo apt install winetricks              # Debian / Ubuntu
-sudo pacstall -I winetricks-git          # Debian / Ubuntu (alternative)
-sudo pacman -S winetricks                # Arch / Artix</code></pre>
+        <pre class="border round padding scroll"><code>sudo apt install winetricks           # Debian / Ubuntu
+sudo pacstall -I winetricks-git       # Debian / Ubuntu (alternative)
+sudo pacman -S winetricks             # Arch / Artix</code></pre>
         <blockquote><span class="large bold"><b>TIP</b></span>
-          <br>If winetricks is not available in your repos, download the <code>.deb</code> from<a class="link" href="https://packages.debian.org/trixie/winetricks">Debian Packages</a> and run
-          <code>sudo apt --fix-broken install</code> if there are dependency issues.
+          <br><p>If winetricks is not available in your repos, download the <code>.deb</code> from <a class="link" href="https://packages.debian.org/trixie/winetricks">Debian Packages</a> and run
+          <code>sudo apt --fix-broken install</code> if there are dependency issues.</p>
         </blockquote>
         <div class="space"></div>
         <h5 class="heading small bold">Install Required Components</h3>
@@ -155,8 +155,8 @@ sudo pacman -S winetricks                # Arch / Artix</code></pre>
         <p>Download the <a class="link" href="https://go.microsoft.com/fwlink/p/?LinkId=2124703">WebView2 Evergreen Bootstrapper</a> and install it:</p>
         <pre class="border round padding scroll"><code>wine ~/Downloads/MicrosoftEdgeWebView2Setup.exe</code></pre>
         <blockquote><span class="large bold"><b>WARNING</b></span>
-            <br>Do <b>not</b> use the standalone installer. It installs version 136.x.x which crashes when launching LABS. Always use the bootstrapper link above.
-            <code>sudo apt --fix-broken install</code> if there are dependency issues.
+            <br><p>Do <b>not</b> use the standalone installer. It installs version 136.x.x which crashes when launching LABS. Always use the bootstrapper link above.
+            <code>sudo apt --fix-broken install</code> if there are dependency issues.</p>
         </blockquote>
         <div class="space"></div>
         <div class="space"></div>
@@ -187,60 +187,64 @@ sudo pacman -S winetricks                # Arch / Artix</code></pre>
             </table>
             <p>To check your graphics capabilities:</p>
             <pre class="border round padding scroll"><code>winetricks dxdiag</code></pre>
+            <p>If you are using <code>d3dx10</code> with the mesa driver, You can also force it to use it, you will encounter less crashes since the <code>mesa</code> drivers are maintained.<p/>
+            <pre class="border round padding scroll"><code>[ -f ".profile" ] ||  touch .profile
+echo "LIBGL_ALWAYS_SOFTWARE=1 __GLX_VENDOR_LIBRARY_NAME=mesa" >> .profile
+source .profile </code></pre>
           </ul>
             <div class="space"></div>
             <div class="space"></div>
         <h4 class="heading small bold" id="install-a-daw">5. Install a DAW</h2>
         <ul>
             <blockquote><span class="large bold"><b>IMPORTANT</b></span>
-                <br>Do <b>not</b> use the standalone installer. It installs version 136.x.x which crashes when launching LABS. Always use the bootstrapper link above.
-                <code>sudo apt --fix-broken install</code> if there are dependency issues.
+                <br><p>Do <b>not</b> use the standalone installer. It installs version 136.x.x which crashes when launching LABS. Always use the bootstrapper link above.
+                <code>sudo apt --fix-broken install</code> if there are dependency issues.</p>
             </blockquote>
             <p><b>Debian / Ubuntu:</b></p>
-            <pre class="border round padding scroll"><code>sudo apt install lmms                          # Stable (may lack VST support)
-sudo pacstall -I lmms-git                      # Alpha (recommended)</code></pre>
+            <pre class="border round padding scroll"><code>sudo apt install lmms                    # Stable (may lack VST support)
+sudo pacstall -I lmms-git                # Alpha (recommended)</code></pre>
             <p><b>Arch / Artix:</b></p>
-            <pre class="border round padding scroll"><code>sudo pacman -S lmms                            # Stable
-yay -S lmms-git                                # Alpha (recommended)</code></pre>
+            <pre class="border round padding scroll"><code>sudo pacman -S lmms                      # Stable
+yay -S lmms-git                          # Alpha (recommended)</code></pre>
         </ul>
         <div class="space"></div>
         <div class="space"></div>
       <h3 class="heading medium bold" id="troubleshooting">Troubleshooting</h2>
       <div class="space"></div>
-      <div class="divider"></div>
+      <hr class="divider">
       <div class="space"></div>
-      <ul>
-        <h4 class="heading small bold">LABS Doesn't Open or Crashes</h3>
-        <ol>
-          <li>
-            <b>Downgrade LABS</b> — Use the older
+      <h4 id="labs-crashes" class="heading small bold">LABS Doesn't Open or it Crashes</h3>
+      <ol>
+        <li>
+            <b>Downgrade LABS</b>: Use the older
             <a class="link" href="https://github.com/aKqir24/Spitfire-LABS-Installation-Guide-In-Linux/blob/main/LABS.dll.zip">LABS.dll</a>:
             <pre class="border round padding scroll"><code>curl -O https://github.com/aKqir24/Spitfire-LABS-Installation-Guide-In-Linux/raw/refs/heads/main/LABS.dll.zip</code></pre>
-          </li>
-          <li>
-            <b>Try wine-staging</b> — If using wine-stable, switch to wine-staging (may be less stable).
-          </li>
-          <li>
-            <b>Check GPU drivers</b> — Ensure your drivers are up to date and your Wine prefix is clean:
+        </li>
+        <li>
+            <b>Try wine-staging</b>: If using wine-stable, switch to wine-staging (may be less stable).
+        </li>
+        <li>
+            <b>Check GPU drivers</b>: Ensure your drivers are up to date and your Wine prefix is clean:
             <pre class="border round padding scroll"><code>rm -rf ~/.wine
-    wineboot --init</code></pre>
-          </li>
+wineboot --init</code></pre>
+        </li>
+        <li>
+            <b>Properly setup dotnet:</b>
+            Run <code>winecfg</code> and go to libraries, then add <code>concrt140</code> in the new override for library.
         </ol>
-        <div class="space"></div>
-        <h4 class="heading small bold">Webview Cannot Be Installed even when it is not installed</h3>
-        <ul>
-            <p>Just go to <code>~/.wine/system.reg</code> of your wine folder, then open it in your IDE and
-            Search for <code>Webview</code>.</p>
-            <p>You should see lines like these, when you see it remove it and save the file.
+    <div class="space"></div>
+      <h4 id="webview-cannot-install" class="heading small bold">Webview Cannot Be Installed even when it is not installed</h3>
+      <p>Just go to <code>~/.wine/system.reg</code> of your wine folder, then open it in your IDE and Search for <code>Webview</code>.</p>
+      <p>You should see lines like these, when you see it remove it and save the file.
             This usually happens if you install the <code>Webview</code> in win10 or a much latest installer.</p>
-            <pre class="border round padding scroll"><code>[Software\\Wow6432Node\\Microsoft\\EdgeUpdate\\Clients\\{F3017226-FE2A-4295-8BDF-00C3A9A7E4C5}] 1785220019
+      <pre class="border round padding scroll"><code>[Software\\Wow6432Node\\Microsoft\\EdgeUpdate\\Clients\\{F3017226-FE2A-4295-8BDF-00C3A9A7E4C5}] 1785220019
     #time=1dd1e5a189fca4e
     "location"="C:\\Program Files (x86)\\Microsoft\\EdgeWebView\\Application"
     "name"="Microsoft Edge WebView2 Runtime"
     "pv"="109.0.1518.140"
     "SilentUninstall"="\"C:\\Program Files (x86)\\Microsoft\\EdgeWebView\\Application\\109.0.1518.140\\Installer\\setup.exe\" --force-uninstall --uninstall --msedgewebview --system-level --verbose-logging"</code></pre>
         </ul>
-      </ul>
+      </ol>
       <h3 class="heading medium bold" id="sources">Sources</h2>
       <div class="space"></div>
       <hr class="divider">
@@ -248,6 +252,7 @@ yay -S lmms-git                                # Alpha (recommended)</code></pre
       <ul>
         <li><a class="link" href="https://www.reddit.com/r/Lutris/comments/rpomzv/you_do_not_have_the_microsoft_webview2_runtime">Wine + WebView2 — Reddit / Lutris</a></li>
         <li><a class="link" href="https://bbs.archlinux.org/viewtopic.php?id=287582">Wine + WebView2 — Arch Linux Forums</a></li>
+        <li><a class="link" href="https://appdb.winehq.org/objectManager.php?sClass=version&iId=42586#notes">WineHQ Forum — Clip Studio Paint 4 menus turn black when clicked</a></li>
         <li><a class="link" href="https://forum.winehq.org/viewtopic.php?t=38443">WineHQ Forum — WebView2 Discussion</a></li>
       </ul>
 </main>

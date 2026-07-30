@@ -22,3 +22,26 @@ pre.scroll span.comment {
 code {
     background-color: transparent;
 }
+/* Container needs relative positioning to anchor the button */
+.code-container {
+  position: relative;
+  margin-bottom: 1rem;
+}
+
+/* Style and position the button in the top right */
+.copy-button {
+  position: absolute;
+  top: 8px;
+  right: 8px;
+  padding: 4px 8px;
+  background-color: #f0f0f0;
+  border: 1px solid #ccc;
+  border-radius: 4px;
+  cursor: pointer;
+  font-size: 0.8rem;
+  color: #333;
+}
+
+.copy-button:hover {
+  background-color: #e0e0e0;
+}

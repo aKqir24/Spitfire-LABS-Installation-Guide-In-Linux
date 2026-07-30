@@ -31,8 +31,7 @@ jobs:
         run: |
           mkdir -p _site
           touch _site/.nojekyll
-          python3 website/append_head.py
-          bash website/post_change.sh
+          bash website/append.sh
 
       - name: Upload artifact
         uses: actions/upload-pages-artifact@v3
